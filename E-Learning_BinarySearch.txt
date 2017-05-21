@@ -1,0 +1,128 @@
+Nama: Irvan Fikriansyah
+Kelas: TIF RM 16B
+NIM: 16111206
+
+
+Pencarian merupakan proses yang fundamental dalam pemrograman, guna menemukan data (nilai) tertentu di dalam sekumpulan data yang bertipe sama. 
+Fungsi pencarian itu sendiri adalah memvalidasi (mencocokan) data. Sebagai contoh, untuk menghapus atau mengubah sebuah data di dalam sekumpulan nilai, 
+langkah pertama yang harus ditempuh adalah mencari data tersebut, lalu menghapus atau mengubahnya. Contoh lain adalah penyisipan data ke dalam kumpulan data, 
+jika data telah ada, maka data tersebut tidak akan disisipkan, selainnya akan disisipkan ke dalam kumpulan data tersebut.
+
+Binary search adalah sebuah algoritma pencarian dengan cara membagi data menjadi dua bagian setiap kali terjadi proses pencarian untuk 
+menemukan nilai tertentu dalam sebuah larik (array) linear.
+
+Sebuah pencarian biner mencari nilai tengah (median/mid), melakukan sebuah  pembandingan untuk menentukan apakah nilai yang dicari 
+ada sebelum atau sesudahnya, kemudian mencari setengah sisanya dengan cara yang sama.
+
+Pencarian Biner (Binary Search) dilakukan untuk :
+-Memperkecil jumlah operasi pembandingan yang harus dilakukan antara data yang dicari dengan data yang ada di dalam tabel, 
+ khususnya untuk jumlah data yang sangat besar ukurannya.
+-Beban komputasi juga lebih kecil karena pencarian dilakukan dari depan, belakang, dan tengah.
+-Prinsip dasarnya adalah melakukan proses pembagian ruang pencarian secara berulang-ulang sampai data ditemukan atau 
+ sampai ruang pencarian tidak dapat dibagi lagi (berarti ada kemungkinan data tidak ditemukan).
+-Syarat utama untuk pencarian biner adalah data di dalam tabel harus sudah terurut.
+
+Kekurangan binary search yaitu data harus disorting dahulu. 
+
+Binary search, atau metode pencarian secara biner hanya bisa dilakukan jika data sudah terurut. Keunggulan dari proses binary search ini 
+adalah sistem pencariannya yang relatif cepat dan efisien walaupun ada banyak data sekalipun. Karena data dicari dari depan, tengah dan belakang. 
+Tetapi sintaks dan algoritmanya sedikit lebih rumit, karena kita harus mengurutkan data terlebih dahulu. Pengurutan data disini bisa kalian lakukan 
+dengan metode ascending ataupun descending. Untuk dasar dari binary search ini, saya akan memberikan array dengan data yang telah diurut sebelumnya. 
+Agar lebih mudah memahami dasar dari binary search ini.
+
+Adapun algoritma dari binary search ini adalah sebagai berikut:
+-Membaca data yang ada di array 
+-Jika data belum terurut, maka lakukan pengurutan data Menentukan data yang akan dicari di dalam array 
+-Menentukan nilai elemen tengah array 
+-Jika nilai elemen tengah array sama dengan data yang dicari, maka pencarian akan dihentikan 
+-Jika elemen tengah tidak sama dengan data yang dicari, maka: 
+-Jika nilai tengah lebih besar dari nilai yang dicari, maka pencarian hanya dilakukan pada setengah array pertama 
+-Jika nilai tengah lebih kecil dari nilai yang dicari, maka pencarian hanya dilakukan pada setengah array sisa.
+
+contohh:
+
+1. Pertama mengambil data pada posisi awal=1 dan akhir =n
+
+2. mengambil posisi tengah dengan cara membagi dua dari jumlah awal dan akhir, misalnya data akhir adalah 9 maka data tengah adalah 9 + 1 = 10, 10/2 = 5
+
+3. Setelah data tengah didapat, kemudian bandingkan dengan keyword atau kata kunci jika sama maka proses selesai. 
+   Jika lebih kecil, proses dilakukan kembali tetapi posisi akhir dianggap sama dengan posisi tengah -1, 
+   Jika lebih besar proses dilakukan kembali tetapi posisi awal dianggap sama dengan posisi tengah +1
+
+4. Mengulang langkah ke dua hingga berakhir.
+
+5. Proses akan berhenti jika data ditemukan. jika posisi awal sudah lebih besar dari posisi akhir berarti data tidak ditemukan.
+
+misal terdapat data ={70,71,72,73,74,75,76,77,78}
+
+mencari 75 yang terletak pada data ke 5
+
+(1 + 9 ) / 2 = 5  data kelima nilainya 74 berarti tidak sama, maka akan dilakukan perncarian lagi. periksa apakah data ke 5 (74) < 75..?. ya . maka data tengah - 1.
+
+(4+9)/2 = 6,5 dibulatkan menjadi 6 nilai data ke 6 adalah 75 dan data sama dengan nilai pencarian. Proses berhenti
+
+
+contoh program c++
+
+#include<iostream>
+using namespace std;
+int main () {
+ int n, angka[12], kiri, kanan, tengah, temp, key;
+ bool ketemu = false;
+ 
+ cout<<"Masukan jumlah data : ";
+ cin>>n;
+ 
+ for(int i=0; i<n; i++)
+ {
+  cout<<"Angka ke - ["<<i<<"] : ";
+  cin>>angka[i];
+ }
+ for (int i=0; i<n; i++)
+ {
+  for(int j=0; j< n-i-1; j++)
+  {
+   if(angka [j] > angka [j+1])
+   {
+    temp=angka[j];
+    angka[j]=angka[j+1];
+    angka[j+1]=temp;
+   }
+  }
+ }
+ cout<<"Data yang telah diurutkan adalah : ";
+ for(int i=0; i<n; i++)
+ {
+  cout<<angka[i]<<" ";
+ }
+ cout<<"\n Masukan angka yang dicari : ";
+ cin>>key;
+ 
+ kiri=0;
+ kanan=n-1;
+ 
+ while(kiri<=kanan)
+ {
+  tengah=(kiri + kanan)/2;
+  if(key == angka[tengah])
+  {
+   ketemu=true;
+   break;
+  }
+  else if (key < angka [tengah])
+  {
+   kanan = tengah -1;
+  }
+  else
+  {
+   kiri = tengah +1;
+  }
+ }
+ if (ketemu == true)
+  cout<<"Angka ditemukan!";
+ else 
+  cout<<"Angka tidak ditemukan";
+  return 0;
+ }
+
+
